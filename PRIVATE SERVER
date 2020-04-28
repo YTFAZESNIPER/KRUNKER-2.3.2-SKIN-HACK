@@ -1,0 +1,25 @@
+// ==UserScript==
+// @name         KRUNKER 2.3.2 SKIN HACK PRIVATE SERVER
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  SKIN HACK NOT AIMBOT
+// @author       FAZE SNIPER WANTS TO THANK ZaresPlus X
+// @include      /^(https?:\/\/)?(www\.)?(.+)krunker\.io(|\/|\/\?.+)$/
+// @run-at       document-start
+// @grant        none
+// ==/UserScript==
+
+const gameServerURL = 'wss://krunker.social:8443';
+
+window.history.replaceState(null, null, '/');
+window.history.replaceState = function() {};
+
+window.WebSocket = class extends WebSocket {
+    constructor(url, protocol) {
+        if (url.includes('krunker.io')) {
+            url = gameServerURL;
+        }
+
+        super(url, protocol);
+    }
+}
